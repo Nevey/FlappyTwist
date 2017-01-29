@@ -37,12 +37,18 @@ Scene.prototype.init = function()
 
 Scene.prototype.show = function()
 {
-    // TODO: Put show code here, will show all elements
+    this._elements.forEach(function(element)
+    {
+        element.enabled = true;
+    }, this);
 };
 
 Scene.prototype.hide = function()
 {
-    // TODO: Put hide code here, will hide all elements
+    this._elements.forEach(function(element)
+    {
+        element.enabled = false;
+    }, this);
 };
 
 Scene.prototype._clearContext = function()

@@ -13,3 +13,15 @@ Splash.prototype.init = function()
 
     this._bird = this._addSprite('Bird');
 };
+
+Splash.prototype.show = function()
+{
+    Splash.base.show.call(this);
+
+    this._bird.visible = false;
+
+    setTimeout(function()
+    {
+        this._bird.visible = true;
+    }.bind(this), 1000);
+};

@@ -5,8 +5,6 @@ function Bird(name)
     // TODO: this value should be set automatically once sprite atlases support is built
     this.frames = 4;
 
-    this.enabled = true;
-
     this._animate(24);
 }
 
