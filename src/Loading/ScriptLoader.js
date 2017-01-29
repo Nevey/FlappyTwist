@@ -25,10 +25,14 @@ ScriptLoader.prototype.load = function(callback, context)
 
     this._context = context;
 
-    this._queue.forEach(function(src)
-    {
-        this._loadScript(src);
-    }, this);
+    this._loadNextScript();
+};
+
+ScriptLoader.prototype._loadNextScript = function()
+{
+    var src = this._queue.splice(0, 1);
+
+    this._loadScript(src);
 };
 
 ScriptLoader.prototype._loadScript = function(src)
@@ -50,10 +54,6 @@ ScriptLoader.prototype._loadScript = function(src)
 
 ScriptLoader.prototype._checkForLoadingFinished = function(src)
 {
-    var index = this._queue.indexOf(src);
-
-    this._queue.splice(index, 1);
-
     if (this._queue.length === 0)
     {
         this._callback && this._callback.call(this._context);
@@ -61,5 +61,9 @@ ScriptLoader.prototype._checkForLoadingFinished = function(src)
         this._callback = null;
 
         this._context = null;
+    }
+    else
+    {
+        this._loadNextScript();
     }
 };
