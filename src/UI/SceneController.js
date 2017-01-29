@@ -1,6 +1,6 @@
 function SceneController()
 {
-    
+    this._currentActiveScene = null;
 }
 
 SceneController.SCENES = {};
@@ -27,7 +27,14 @@ SceneController.init = function()
 
 SceneController.show = function(name)
 {
+    if (this._currentActiveScene)
+    {
+        SceneController.hide(this._currentActiveScene);
+    }
+
     SceneController.SCENES[name].show();
+
+    this._currentActiveScene = name;
 };
 
 SceneController.hide = function(name)

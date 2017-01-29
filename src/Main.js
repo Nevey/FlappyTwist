@@ -26,6 +26,7 @@ function Initialize()
     scriptLoader.add('UI/SceneController.js');
     scriptLoader.add('UI/Scene.js');
     scriptLoader.add('UI/Scenes/Splash.js');
+    scriptLoader.add('UI/Scenes/Game.js');
 
     // Start loading, do callback when done
     scriptLoader.load(LoadAssets);
@@ -120,6 +121,7 @@ function SetupScenes()
     console.log("Main:SetupScenes");
 
     SceneController.add('Splash');
+    SceneController.add('Game');
 
     SceneController.init();
 

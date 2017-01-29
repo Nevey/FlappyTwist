@@ -23,6 +23,11 @@ Splash.prototype.show = function()
     Splash.base.show.call(this);
 
     this._bird.setSplashState();
+
+    setTimeout(function()
+    {
+        SceneController.show('Game');
+    }, 10000);
 };
 
 Splash.prototype._addSplashSprite = function()
