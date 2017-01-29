@@ -11,9 +11,6 @@ function Initialize()
     scriptLoader.add('Core/CanvasBuilder.js');
     scriptLoader.add('Core/GameEvents.js');
 
-    // Load messaging scripts
-    scriptLoader.add('Messaging/Event.js');
-
     // Load asset/game loading scripts
     scriptLoader.add('Loading/AssetType.js');
     scriptLoader.add('Loading/Cache.js');
