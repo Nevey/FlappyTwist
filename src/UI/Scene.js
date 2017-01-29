@@ -48,6 +48,9 @@ Scene.prototype.init = function()
 
     this._context2d = this._canvas.getContext('2d');
 
+    // Hide the canvas by default
+    this._canvas.style.display = "none";
+
     // Put your initialization code here
 };
 
@@ -57,6 +60,9 @@ Scene.prototype.show = function()
     {
         element.enabled = true;
     }, this);
+
+    // Show the canvas
+    this._canvas.style.display = "";
 };
 
 Scene.prototype.hide = function()
@@ -65,6 +71,9 @@ Scene.prototype.hide = function()
     {
         element.enabled = false;
     }, this);
+
+    // Hide the canvas
+    this._canvas.style.display = "none";
 };
 
 Scene.prototype.setBackgroundColor = function(colorString)
