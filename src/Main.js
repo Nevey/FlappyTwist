@@ -106,6 +106,8 @@ function LoadImages(callback, context)
 
 function SetupScenes()
 {
+    console.log("Main:SetupScenes");
+
     SceneController.add('Splash');
 
     SceneController.init();
@@ -115,6 +117,8 @@ function SetupScenes()
 
 function StartUpdateEvents()
 {
+    console.log("Main:StartUpdateEvents");
+
     var updateEvents = new UpdateEvents();
 
     updateEvents.start();
