@@ -1,11 +1,9 @@
 function Sprite(name, key)
 {
-    // Contains the following
-
-
-    // Animate, keyframe animation based on draw logic
-    // Position
-    // List of all children - will set position relative to this
+    // TODO: Want this to contain the following
+    // Rotation
+    // Relative position (to parent)
+    // List of all children
 
     this._name = name;
 
@@ -51,13 +49,19 @@ function Sprite(name, key)
     // NOTE: only works vertically at this time!
     this._frames = 1;
 
-    this._updateListenerEnabled = false;
-
-    this._renderListenerEnabled = false;
+    this._animating = false;
 
     // Set visible by default
     this.visible = true;
 }
+
+Object.defineProperty(Sprite.prototype, 'name',
+{
+    get: function()
+    {
+        return this._name;
+    }
+});
 
 Object.defineProperty(Sprite.prototype, 'x',
 {
@@ -127,11 +131,11 @@ Object.defineProperty(Sprite.prototype, 'enabled',
         if (this._enabled && !wasEnabled)
         {
             // Listen to update event
-            document.addEventListener('updateEvent', this._update.bind(this));
+            document.addEventListener('updateEvent', this.update.bind(this));
         }
         else if (!this._enabled && wasEnabled)
         {
-            document.removeEventListener('updateEvent', this._update.bind(this));
+            document.removeEventListener('updateEvent', this.update.bind(this));
         }
     }
 });
@@ -156,12 +160,26 @@ Sprite.prototype.setContext = function(canvas)
     this._context = canvas.getContext('2d');
 };
 
-Sprite.prototype.startAnimate = function(fps)
+Sprite.prototype.animate = function(fps, totalLoopCount)
 {
+    this._animating = true;
 
+    this._animate(fps, totalLoopCount);
 };
 
-Sprite.prototype._update = function()
+Sprite.prototype.animateLoop = function(fps)
+{
+    this._animating = true;
+
+    this._animate(fps, Infinity);
+};
+
+Sprite.prototype.stopAnimate = function()
+{
+    this._animating = false;
+};
+
+Sprite.prototype.update = function()
 {
     // Update logic here
 };
@@ -180,15 +198,22 @@ Sprite.prototype._render = function()
         this._frameRect.y + this._frameRect.height * this._currentFrame,
         this._frameRect.width,
         this._frameRect.height,
-        this._x,
-        this._y,
+        this._x - this._frameRect.width / 2,
+        this._y - this._frameRect.height / 2,
         this._frameRect.width * this._scale.x,
         this._frameRect.height * this._scale.y);
 };
 
-Sprite.prototype._animate = function(fps)
+Sprite.prototype._calculateFrameHeight = function()
+{
+    this._frameRect.height = this._rect.height / this._frames;
+};
+
+Sprite.prototype._animate = function(fps, totalLoopCount)
 {
     var time = 1000 / fps;
+
+    var loopCount = totalLoopCount || 1;
 
     // Very straight forward frame loop
     // TODO: add option to select specific frames in specific order
@@ -197,12 +222,19 @@ Sprite.prototype._animate = function(fps)
     if (this._currentFrame === this._frames)
     {
         this._currentFrame = 0;
+
+        if (loopCount !== Infinity)
+        {
+            loopCount--;
+        }
     }
 
-    setTimeout(this._animate.bind(this, fps), time);
-};
+    if (loopCount === 0 || !this._animating)
+    {
+        this._animating = false;
 
-Sprite.prototype._calculateFrameHeight = function()
-{
-    this._frameRect.height = this._rect.height / this._frames;
+        return;
+    }
+
+    setTimeout(this._animate.bind(this, fps, loopCount), time);
 };
