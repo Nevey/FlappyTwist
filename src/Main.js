@@ -20,6 +20,7 @@ function Initialize()
     // Load gameobject scripts
     scriptLoader.add('GameObjects/Sprite.js');
     scriptLoader.add('GameObjects/Bird.js');
+    scriptLoader.add('GameObjects/SplashSprite.js');
 
     // Load UI scripts
     scriptLoader.add('UI/SceneController.js');
