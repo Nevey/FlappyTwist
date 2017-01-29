@@ -44,7 +44,7 @@ function LoadAssets()
         LoadImages(function()
         {
 
-            SetupScenes();
+            CreateMainCanvas();
 
         }, this);
 
@@ -55,7 +55,11 @@ function LoadJSONS(callback, context)
 {
     console.log('Main:LoadJSONS');
 
-    callback.call(context);
+    var assetLoader = new AssetLoader();
+
+    assetLoader.addJSON('gameConfig.json');
+
+    assetLoader.load(callback, context);
 }
 
 function LoadImages(callback, context)
@@ -104,6 +108,15 @@ function LoadImages(callback, context)
     assetLoader.load(callback, context);
 }
 
+function CreateMainCanvas()
+{
+    // var canvasBuilder = new CanvasBuilder();
+
+    // canvasBuilder.buildMain();
+
+    SetupScenes();
+}
+
 function SetupScenes()
 {
     console.log("Main:SetupScenes");
@@ -112,10 +125,10 @@ function SetupScenes()
 
     SceneController.init();
 
-    StartUpdateEvents();
+    StartGameEvents();
 }
 
-function StartUpdateEvents()
+function StartGameEvents()
 {
     console.log("Main:StartUpdateEvents");
 
@@ -132,7 +145,5 @@ function ShowSplash()
 
     SceneController.show('Splash');
 }
-
-
 
 Initialize();

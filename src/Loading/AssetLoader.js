@@ -66,10 +66,11 @@ AssetLoader.prototype.load = function(callback, context)
         switch (queueElement.type)
         {
             case AssetType.JSON:
+                this._loadJSON(queueElement);
             break;
 
             case AssetType.IMAGE:
-                this.loadImage(queueElement);
+                this._loadImage(queueElement);
             break;
 
             case AssetType.TEXT:
@@ -79,9 +80,34 @@ AssetLoader.prototype.load = function(callback, context)
     }, this);
 };
 
-AssetLoader.prototype.loadImage = function(queueElement)
+AssetLoader.prototype._loadJSON = function(queueElement)
+{
+    var xObject = new XMLHttpRequest();
+
+    xObject.overrideMimeType("application/json");
+
+    xObject.open('GET', queueElement.src, true);
+
+    xObject.onreadystatechange = function()
+    {
+        if (xObject.readyState == 4 && xObject.status == "200") 
+        {
+            var json = JSON.parse(xObject.responseText.toString());
+
+            Cache.addJSON(queueElement.name, json);
+
+            this._checkForLoadDone(queueElement);
+        }
+    }.bind(this);
+
+    xObject.send(null);
+};
+
+AssetLoader.prototype._loadImage = function(queueElement)
 {
     var image = new Image();
+
+    image.src = queueElement.src;
 
     image.onload = function()
     {
@@ -90,10 +116,6 @@ AssetLoader.prototype.loadImage = function(queueElement)
         this._checkForLoadDone(queueElement);
 
     }.bind(this);
-
-    image.src = queueElement.src;
-
-    return image;
 };
 
 AssetLoader.prototype._checkForLoadDone = function(queueElement)

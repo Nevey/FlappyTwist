@@ -8,7 +8,7 @@ Cache.TEXTS = {};
 
 Cache.addJSON = function(name, json)
 {
-    this._add(name, image, 'JSONS');
+    this._add(name, json, 'JSONS');
 };
 
 Cache.addImage = function(name, image)
@@ -18,7 +18,7 @@ Cache.addImage = function(name, image)
 
 Cache.addText = function(name, text)
 {
-    this._add(name, image, 'TEXTS');
+    this._add(name, text, 'TEXTS');
 };
 
 Cache.getJSON = function(name)

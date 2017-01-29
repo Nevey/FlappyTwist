@@ -28,7 +28,7 @@ function Scene(name)
 
 Scene.prototype.init = function()
 {
-    this._canvas = this._canvasBuilder.build(this._name);
+    this._canvas = this._canvasBuilder.buildSceneCanvas(this._name);
 
     this._context2d = this._canvas.getContext('2d');
 
