@@ -13,6 +13,8 @@ function Scene(name)
 
     this._canvas = null;
 
+    this._context2d = null;
+
     this._elements = [];
 
     this._images = {};
@@ -20,11 +22,15 @@ function Scene(name)
     this._texts = {};
 
     this._buttons = {};
+
+    document.addEventListener('preUpdateEvent', this._clearContext.bind(this));
 }
 
 Scene.prototype.init = function()
 {
     this._canvas = this._canvasBuilder.build(this._name);
+
+    this._context2d = this._canvas.getContext('2d');
 
     // Put your initialization code here
 };
@@ -37,6 +43,11 @@ Scene.prototype.show = function()
 Scene.prototype.hide = function()
 {
     // TODO: Put hide code here, will hide all elements
+};
+
+Scene.prototype._clearContext = function()
+{
+    this._context2d.clearRect(0, 0, this._canvas.width, this._canvas.height);
 };
 
 // TODO: Move this to a scene builder, to make it possible to build scenes from data files

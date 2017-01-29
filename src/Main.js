@@ -9,7 +9,7 @@ function Initialize()
     // Load core scripts
     scriptLoader.add('Core/Class.js');
     scriptLoader.add('Core/CanvasBuilder.js');
-    scriptLoader.add('Core/UpdateEvents.js');
+    scriptLoader.add('Core/GameEvents.js');
 
     // Load messaging scripts
     scriptLoader.add('Messaging/Event.js');
@@ -119,9 +119,9 @@ function StartUpdateEvents()
 {
     console.log("Main:StartUpdateEvents");
 
-    var updateEvents = new UpdateEvents();
+    var gameEvents = new GameEvents();
 
-    updateEvents.start();
+    gameEvents.start();
 
     ShowSplash();
 }

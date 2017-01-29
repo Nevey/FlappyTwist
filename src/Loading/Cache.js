@@ -1,62 +1,55 @@
-function Cache()
+Cache = {};
+
+Cache.JSONS = {};
+
+Cache.IMAGES = {};
+
+Cache.TEXTS = {};
+
+Cache.addJSON = function(name, json)
 {
-
-}
-
-Cache.JSONS = [];
-
-Cache.IMAGES = [];
-
-Cache.TEXTS = [];
-
-Cache.addJSON = function(name, JSON)
-{
-    var cacheObject = Cache._getDefaultCacheObject(name);
-
-    cacheObject.object = JSON;
-
-    if (Cache.JSONS.indexOf(cacheObject) === -1)
-    {
-        Cache.JSONS.push(cacheObject);
-    }
-
-    return cacheObject;
+    this._add(name, image, 'JSONS');
 };
 
 Cache.addImage = function(name, image)
 {
-    var cacheObject = Cache._getDefaultCacheObject(name);
-
-    cacheObject.object = image;
-
-    if (Cache.IMAGES.indexOf(cacheObject) === -1)
-    {
-        Cache.IMAGES.push(cacheObject);
-    }
-
-    return cacheObject;
+    this._add(name, image, 'IMAGES');
 };
 
 Cache.addText = function(name, text)
 {
-    var cacheObject = Cache._getDefaultCacheObject(name);
-
-    cacheObject.object = text;
-
-    if (Cache.TEXTS.indexOf(cacheObject) === -1)
-    {
-        Cache.TEXTS.push(cacheObject);
-    }
-
-    return cacheObject;
+    this._add(name, image, 'TEXTS');
 };
 
-Cache._getDefaultCacheObject = function(name)
+Cache.getJSON = function(name)
 {
-    var cacheObject = {
-        name: name,
-        object: null
-    };
+    return this._get(name, 'JSONS');
+};
 
-    return cacheObject;
+Cache.getImage = function(name)
+{
+    return this._get(name, 'IMAGES');
+};
+
+Cache.getText = function(name)
+{
+    return this._get(name, 'TEXTS');
+};
+
+Cache._add = function(name, object, type)
+{
+    if (!Cache[type][name])
+    {
+        Cache[type][name] = object;
+    }
+};
+
+Cache._get = function(name, type)
+{
+    if (!Cache[type] || !Cache[type][name])
+    {
+        console.warn('Trying to get cached object with name: ' + name + ' - but does not exist!');
+    }
+
+    return Cache[type][name];
 };
