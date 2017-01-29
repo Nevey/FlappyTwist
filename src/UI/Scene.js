@@ -26,6 +26,22 @@ function Scene(name)
     document.addEventListener('preUpdateEvent', this._clearContext.bind(this));
 }
 
+Object.defineProperty(Scene.prototype, 'width',
+{
+    get: function()
+    {
+        return this._canvas.width;
+    }
+});
+
+Object.defineProperty(Scene.prototype, 'height',
+{
+    get: function()
+    {
+        return this._canvas.height;
+    }
+});
+
 Scene.prototype.init = function()
 {
     this._canvas = this._canvasBuilder.buildSceneCanvas(this._name);
@@ -51,28 +67,32 @@ Scene.prototype.hide = function()
     }, this);
 };
 
-Scene.prototype._clearContext = function()
+Scene.prototype.setBackgroundColor = function(colorString)
 {
-    this._context2d.clearRect(0, 0, this._canvas.width, this._canvas.height);
+    this._canvas.style.backgroundColor = colorString;
 };
 
 // TODO: Move this to a scene builder, to make it possible to build scenes from data files
-Scene.prototype._addSprite = function(name, key)
+Scene.prototype.addSprite = function(sprite)
 {
-    if (this._images[name])
+    if (this._images[sprite.name])
     {
-        console.error('Trying to add sprite with name ' + name + ' but already exists!');
+        console.error('Trying to add sprite with name ' + sprite.name + ' but already exists!');
 
         return null;
     }
 
-    var sprite = new window[name](name, key);
-
     sprite.setContext(this._canvas);
 
-    this._images[name] = sprite;
+    this._images[sprite.name] = sprite;
 
     this._elements.push(sprite);
 
     return sprite;
+};
+
+// TODO: move to a more central place, where we have just one element handling the buffering
+Scene.prototype._clearContext = function()
+{
+    this._context2d.clearRect(0, 0, this._canvas.width, this._canvas.height);
 };
