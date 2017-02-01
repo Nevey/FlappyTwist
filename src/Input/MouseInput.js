@@ -21,6 +21,10 @@ MouseInput.enable = function()
 MouseInput.disable = function()
 {
     document.removeEventListener("mousedown", MouseInput._onMouseDown);
+
+    document.removeEventListener("mousemove", MouseInput._onMouseMove);
+
+    document.removeEventListener("mouseup", MouseInput._onMouseUp);
 };
 
 MouseInput._onMouseDown = function()
