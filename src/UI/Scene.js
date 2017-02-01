@@ -22,6 +22,8 @@ function Scene(name)
     this._texts = {};
 
     this._buttons = {};
+
+    this._clearContextBind = this._clearContext.bind(this);
 }
 
 Object.defineProperty(Scene.prototype, 'width',
@@ -62,7 +64,7 @@ Scene.prototype.show = function()
     // Show the canvas
     this._canvas.style.display = "";
 
-    document.addEventListener('preUpdateEvent', this._clearContext.bind(this));
+    document.addEventListener('preUpdateEvent', this._clearContextBind);
 };
 
 Scene.prototype.hide = function()
@@ -74,8 +76,8 @@ Scene.prototype.hide = function()
 
     // Hide the canvas
     this._canvas.style.display = "none";
-
-    document.removeEventListener('preUpdateEvent', this._clearContext.bind(this));
+    
+    document.removeEventListener('preUpdateEvent', this._clearContextBind);
 };
 
 Scene.prototype.setBackgroundColor = function(colorString)

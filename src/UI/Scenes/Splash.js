@@ -3,6 +3,8 @@ function Splash(name)
     Splash.base.constructor.call(this, name);
 
     this._splash = null;
+
+    this._showGameSceneBind = this._showGameScene.bind(this);
 }
 
 Class.inherit(Splash, Scene);
@@ -24,14 +26,14 @@ Splash.prototype.show = function()
 
     this._bird.setSplashState();
 
-    document.addEventListener('tapEvent', this._showGameScene.bind(this));
+    document.addEventListener('tapEvent', this._showGameSceneBind);
 };
 
 Splash.prototype.hide = function()
 {
     Splash.base.hide.call(this);
     
-    document.removeEventListener('tapEvent', this._showGameScene.bind(this));
+    document.removeEventListener('tapEvent', this._showGameSceneBind);
 };
 
 Splash.prototype._addSplashSprite = function()

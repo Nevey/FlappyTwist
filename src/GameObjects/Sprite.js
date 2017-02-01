@@ -51,6 +51,11 @@ function Sprite(name, key)
 
     this._animating = false;
 
+    // Create function.bind(this) references
+    this._updateBind = this.update.bind(this);
+
+    this._renderBind = this._render.bind(this);
+
     // Set visible by default
     this.visible = true;
 }
@@ -104,13 +109,13 @@ Object.defineProperty(Sprite.prototype, 'visible',
 
         if (this._visible && !wasVisible)
         {
-            // TODO: Check if we want a render event to be dispatched
+            // TODO: Check if we want a render event to be dispatched at all
             // Listen to render event - useful to enable culling
-            document.addEventListener('updateEvent', this._render.bind(this));
+            document.addEventListener('updateEvent', this._renderBind);
         }
         else if (!this._visible && wasVisible)
         {
-            document.removeEventListener('updateEvent', this._render.bind(this));
+            document.removeEventListener('updateEvent', this._renderBind);
         }
     }
 });
@@ -131,11 +136,11 @@ Object.defineProperty(Sprite.prototype, 'enabled',
         if (this._enabled && !wasEnabled)
         {
             // Listen to update event
-            document.addEventListener('updateEvent', this.update.bind(this));
+            document.addEventListener('updateEvent', this._updateBind);
         }
         else if (!this._enabled && wasEnabled)
         {
-            document.removeEventListener('updateEvent', this.update.bind(this));
+            document.removeEventListener('updateEvent', this._updateBind);
         }
     }
 });
