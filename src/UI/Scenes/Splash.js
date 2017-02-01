@@ -24,10 +24,10 @@ Splash.prototype.show = function()
 
     this._bird.setSplashState();
 
-    setTimeout(function()
-    {
-        SceneController.show('Game');
-    }, 10000);
+    // setTimeout(function()
+    // {
+    //     SceneController.show('Game');
+    // }, 10000);
 };
 
 Splash.prototype._addSplashSprite = function()

@@ -29,5 +29,5 @@ Bird.prototype.playConstantAnimation = function()
     // 24 fps, typical accepted video fps value
     this.animateLoop(24);
 
-    setTimeout(this.stopAnimate.bind(this), 5000);
+    // setTimeout(this.stopAnimate.bind(this), 5000);
 };
