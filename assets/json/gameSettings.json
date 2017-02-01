@@ -6,5 +6,19 @@
         "flapPower": 5,
 
         "rotationMultiplier": 7.5
+    },
+
+    "world": {
+
+        "elementNames": ["land", "ceiling", "sky"],
+
+        "scrollingSpeeds": {
+
+            "land": 1,
+
+            "ceiling": 1,
+
+            "sky": 0.8
+        }
     }
 }

@@ -1,6 +1,6 @@
-function Bird(name)
+function Bird()
 {
-    Bird.base.constructor.call(this, name, 'bird');
+    Bird.base.constructor.call(this, 'bird');
 
     // TODO: this value should be set automatically once sprite atlases support is built
     this.frames = 4;
@@ -25,6 +25,8 @@ function Bird(name)
     this._rotationMultiplier = gameSettings.bird.rotationMultiplier;
 
     this._flapBind = this._flap.bind(this);
+
+    this._image.style.zIndex = '-10';
 }
 
 Class.inherit(Bird, Sprite);

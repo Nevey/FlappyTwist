@@ -1,13 +1,10 @@
-function Sprite(name, key)
+function Sprite(name)
 {
     // TODO: Want this to contain the following
-    // Rotation
     // Relative position (to parent)
     // List of all children
 
     this._name = name;
-
-    this._key = key;
 
     this._context = null;
 
@@ -28,7 +25,7 @@ function Sprite(name, key)
 
     this._enabled = false;
 
-    this._image = Cache.IMAGES[this._key];
+    this._image = Cache.IMAGES[this._name];
 
     // TODO: add support for sprite atlases
     this._rect = {
@@ -93,6 +90,22 @@ Object.defineProperty(Sprite.prototype, 'y',
     set: function(value)
     {
         this._y = value;
+    }
+});
+
+Object.defineProperty(Sprite.prototype, 'width',
+{
+    get: function()
+    {
+        return this._frameRect.width;
+    }
+});
+
+Object.defineProperty(Sprite.prototype, 'height',
+{
+    get: function()
+    {
+        return this._frameRect.height;
     }
 });
 
@@ -237,6 +250,7 @@ Sprite.prototype._calculateFrameHeight = function()
     this._frameRect.height = this._rect.height / this._frames;
 };
 
+// TODO: get rid of setTimeout and hook up to update loop, once it knows deltaTime
 Sprite.prototype._animate = function(fps, totalLoopCount)
 {
     var time = 1000 / fps;

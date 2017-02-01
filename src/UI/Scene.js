@@ -88,16 +88,39 @@ Scene.prototype.setBackgroundColor = function(colorString)
 // TODO: Move this to a scene builder, to make it possible to build scenes from data files
 Scene.prototype.addSprite = function(sprite)
 {
-    if (this._images[sprite.name])
-    {
-        console.error('Trying to add sprite with name ' + sprite.name + ' but already exists!');
+    var name = sprite.name + '_0';
 
-        return null;
+    if (this._images[name])
+    {
+        var id = 1;
+
+        for (var key in this._images)
+        {
+            var strings = key.split('_');
+
+            var existingId = parseInt(strings[strings.length - 1]);
+
+            var spriteName = '';
+
+            for (var i = 0; i < strings.length - 1; i++)
+            {
+                var string = strings[i];
+
+                spriteName += string;
+            }
+
+            if (existingId >= id)
+            {
+                id = existingId + 1;
+            }
+        }
+
+        name = sprite.name + '_' + id;
     }
 
     sprite.setContext(this._canvas);
 
-    this._images[sprite.name] = sprite;
+    this._images[name] = sprite;
 
     this._elements.push(sprite);
 
