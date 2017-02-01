@@ -15,6 +15,8 @@ function Sprite(name, key)
 
     this._y = 0;
 
+    this._rotation = 0;
+
     this._scale = {
         x: 1,
         y: 1
@@ -91,6 +93,19 @@ Object.defineProperty(Sprite.prototype, 'y',
     set: function(value)
     {
         this._y = value;
+    }
+});
+
+Object.defineProperty(Sprite.prototype, 'rotation',
+{
+    get: function()
+    {
+        return this._rotation * 180 / Math.PI;
+    },
+
+    set: function(value)
+    {
+        this._rotation = value * Math.PI / 180;
     }
 });
 
@@ -196,6 +211,12 @@ Sprite.prototype._render = function()
         return;
     }
 
+    this._context.save();
+
+    this._context.translate(this._x, this._y);
+
+    this._context.rotate(this._rotation);
+
     // TODO: add culling!!!
     this._context.drawImage(
         this._image,
@@ -203,10 +224,12 @@ Sprite.prototype._render = function()
         this._frameRect.y + this._frameRect.height * this._currentFrame,
         this._frameRect.width,
         this._frameRect.height,
-        this._x - this._frameRect.width / 2,
-        this._y - this._frameRect.height / 2,
+        0 - this._frameRect.width / 2,
+        0 - this._frameRect.height / 2,
         this._frameRect.width * this._scale.x,
         this._frameRect.height * this._scale.y);
+
+    this._context.restore();
 };
 
 Sprite.prototype._calculateFrameHeight = function()
