@@ -11,6 +11,26 @@ function WorldBuilder()
     this._updateBind = this._update.bind(this);
 }
 
+Object.defineProperty(WorldBuilder.prototype, 'ceilingCoordinate',
+{
+    get: function()
+    {
+        var ceiling = this._worldElements['ceiling'][0];
+
+        return ceiling.y + ceiling.height / 2;
+    }
+});
+
+Object.defineProperty(WorldBuilder.prototype, 'landCoordinate',
+{
+    get: function()
+    {
+        var land = this._worldElements['land'][0];
+
+        return land.y - land.height / 2;
+    }
+});
+
 WorldBuilder.prototype.init = function(scene)
 {
     this._scene = scene;

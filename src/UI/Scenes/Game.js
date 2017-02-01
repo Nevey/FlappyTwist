@@ -51,4 +51,8 @@ Game.prototype._addBirdSprite = function()
 
     this._bird.x = this.width / 2;
     this._bird.y = this.height / 2;
+
+    this._bird.ceilingCoordinate = this._worldBuilder.ceilingCoordinate;
+
+    this._bird.landCoordinate = this._worldBuilder.landCoordinate;
 };

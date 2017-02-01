@@ -24,6 +24,10 @@ function Bird()
 
     this._rotationMultiplier = gameSettings.bird.rotationMultiplier;
 
+    this._ceilingCoordinate = 0;
+
+    this._landCoordinate = 0;
+
     this._flapBind = this._flap.bind(this);
 
     this._image.style.zIndex = '-10';
@@ -31,11 +35,27 @@ function Bird()
 
 Class.inherit(Bird, Sprite);
 
+Object.defineProperty(Bird.prototype, 'ceilingCoordinate',
+{
+    set: function(value)
+    {
+        this._ceilingCoordinate = value;
+    }
+});
+
+Object.defineProperty(Bird.prototype, 'landCoordinate',
+{
+    set: function(value)
+    {
+        this._landCoordinate = value;
+    }
+});
+
 Bird.prototype.setSplashState = function()
 {
     this._currentState = this._states.splash;
 
-    this.playConstantAnimation();
+    this._playConstantAnimation();
 };
 
 Bird.prototype.setGameState = function()
@@ -44,13 +64,13 @@ Bird.prototype.setGameState = function()
 
     document.addEventListener('tapEvent', this._flapBind);
 
-    this.playConstantAnimation();
+    this._playConstantAnimation();
 
     // Do a single flap on start
     this._flap();
 };
 
-Bird.prototype.playConstantAnimation = function()
+Bird.prototype._playConstantAnimation = function()
 {
     // 24 fps, typical accepted video fps value
     this.animateLoop(24);
@@ -67,6 +87,8 @@ Bird.prototype.update = function()
         this._updatePosition();
 
         this._updateRotation();
+
+        this._checkForCollisions();
     }
 };
 
@@ -88,4 +110,31 @@ Bird.prototype._updateRotation = function()
 Bird.prototype._flap = function()
 {
     this._verticalSpeed = -this._flapPower;
+};
+
+Bird.prototype._checkForCollisions = function()
+{
+    this._checkForCeilingCollision();
+
+    this._checkForLandCollision();
+};
+
+Bird.prototype._checkForCeilingCollision = function()
+{
+    var ceilingY = this._ceilingCoordinate + this.height / 2; 
+    
+    if (this.y <= ceilingY)
+    {
+        this.y = ceilingY;
+    }
+};
+
+Bird.prototype._checkForLandCollision = function()
+{
+    var landY = this._landCoordinate - this.height / 2;
+
+    if (this.y >= landY)
+    {
+        this.y = landY;
+    }
 };
