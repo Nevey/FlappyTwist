@@ -41,6 +41,8 @@ Bird.prototype.setGameState = function()
     this._currentState = this._states.game;
 
     document.addEventListener('tapEvent', this._flapBind);
+
+    this.playConstantAnimation();
 };
 
 Bird.prototype.playConstantAnimation = function()
