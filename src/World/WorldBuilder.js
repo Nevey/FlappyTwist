@@ -59,28 +59,6 @@ WorldBuilder.prototype._buildAllElements = function()
     }, this);
 };
 
-WorldBuilder.prototype._update = function()
-{
-    this._elementNames.forEach(function(elementName)
-    {
-        this._checkForRePosition(elementName);
-    }, this);
-};
-
-WorldBuilder.prototype._checkForRePosition = function(name)
-{
-    // Find right most element
-    var rightMostElement = this._findRightMostElement(name);
-
-    if (rightMostElement.x < this._scene.width)
-    {
-        // Find left most element
-        var leftMostElement = this._findLeftMostElement(name);
-
-        leftMostElement.x = rightMostElement.x + leftMostElement.width;
-    }
-};
-
 WorldBuilder.prototype._buildWorldElement = function(name)
 {
     var element = new ScrollingSprite(name);
@@ -109,6 +87,26 @@ WorldBuilder.prototype._setElementPosition = function(name, element)
         case 'sky':
             element.y = this._scene.height - 165;
             break;
+    }
+};
+
+WorldBuilder.prototype._update = function()
+{
+    this._elementNames.forEach(function(elementName)
+    {
+        this._checkForRePosition(elementName);
+    }, this);
+};
+
+WorldBuilder.prototype._checkForRePosition = function(name)
+{
+    var rightMostElement = this._findRightMostElement(name);
+
+    if (rightMostElement.x < this._scene.width)
+    {
+        var leftMostElement = this._findLeftMostElement(name);
+
+        leftMostElement.x = rightMostElement.x + leftMostElement.width;
     }
 };
 
