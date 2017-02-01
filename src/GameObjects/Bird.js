@@ -43,6 +43,9 @@ Bird.prototype.setGameState = function()
     document.addEventListener('tapEvent', this._flapBind);
 
     this.playConstantAnimation();
+
+    // Do a single flap on start
+    this._flap();
 };
 
 Bird.prototype.playConstantAnimation = function()
