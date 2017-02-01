@@ -3,6 +3,12 @@ function PlayerInput()
     
 }
 
+PlayerInput.tapEvent = new CustomEvent('tapEvent');
+
+PlayerInput.moveEvent = new CustomEvent('moveEvent');
+
+PlayerInput.releaseEvent = new CustomEvent('releaseEvent');
+
 PlayerInput.enable = function()
 {
     PlayerInput._enableMouseInputListeners();
@@ -55,15 +61,15 @@ PlayerInput._disableTouchInputListeners = function()
 
 PlayerInput._onTap = function()
 {
-    console.log('Tap!');
+    document.dispatchEvent(PlayerInput.tapEvent);
 };
 
 PlayerInput._onMove = function()
 {
-    console.log('Move!');
+    document.dispatchEvent(PlayerInput.moveEvent);
 };
 
 PlayerInput._onRelease = function()
 {
-    console.log('Release!');
+    document.dispatchEvent(PlayerInput.releaseEvent);
 };
