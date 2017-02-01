@@ -5,6 +5,7 @@ function Initialize()
     var scriptLoader = new ScriptLoader();
 
     // TODO: Automatically add to a manifest file...
+    // TODO: Split loading of engine and game scripts, engine first
 
     // Load core scripts
     scriptLoader.add('Core/Class.js');
@@ -16,6 +17,11 @@ function Initialize()
     scriptLoader.add('Loading/Cache.js');
     scriptLoader.add('Loading/AssetName.js');
     scriptLoader.add('Loading/AssetLoader.js');
+
+    // Load input scripts
+    scriptLoader.add('Input/MouseInput.js');
+    scriptLoader.add('Input/TouchInput.js');
+    scriptLoader.add('Input/PlayerInput.js');
 
     // Load gameobject scripts
     scriptLoader.add('GameObjects/Sprite.js');
@@ -109,6 +115,7 @@ function LoadImages(callback, context)
 
 function CreateMainCanvas()
 {
+    // TODO: make all scenes render on the same canvas
     // var canvasBuilder = new CanvasBuilder();
 
     // canvasBuilder.buildMain();
@@ -118,7 +125,7 @@ function CreateMainCanvas()
 
 function SetupScenes()
 {
-    console.log("Main:SetupScenes");
+    console.log('Main:SetupScenes');
 
     SceneController.add('Splash');
     SceneController.add('Game');
@@ -130,11 +137,24 @@ function SetupScenes()
 
 function StartGameEvents()
 {
-    console.log("Main:StartUpdateEvents");
+    console.log('Main:StartUpdateEvents');
 
     var gameEvents = new GameEvents();
 
     gameEvents.start();
+
+    EnableInput();
+}
+
+function EnableInput()
+{
+    console.log('Main:EnableInput');
+
+    MouseInput.enable();
+
+    TouchInput.enable();
+
+    PlayerInput.enable();
 
     ShowSplash();
 }
