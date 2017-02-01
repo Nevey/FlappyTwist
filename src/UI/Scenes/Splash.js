@@ -24,10 +24,14 @@ Splash.prototype.show = function()
 
     this._bird.setSplashState();
 
-    // setTimeout(function()
-    // {
-    //     SceneController.show('Game');
-    // }, 10000);
+    document.addEventListener('tapEvent', this._showGameScene.bind(this));
+};
+
+Splash.prototype.hide = function()
+{
+    Splash.base.hide.call(this);
+    
+    document.removeEventListener('tapEvent', this._showGameScene.bind(this));
 };
 
 Splash.prototype._addSplashSprite = function()
@@ -48,4 +52,9 @@ Splash.prototype._addBirdSprite = function()
 
     this._bird.x = this.width / 2;
     this._bird.y = this.height / 2;
-}
+};
+
+Splash.prototype._showGameScene = function()
+{
+    SceneController.show('Game');
+};
