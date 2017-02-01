@@ -1,0 +1,10 @@
+{
+    "bird": {
+
+        "gravity": 0.2,
+
+        "flapPower": 5,
+
+        "rotationMultiplier": 7.5
+    }
+}

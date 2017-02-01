@@ -63,6 +63,7 @@ function LoadJSONS(callback, context)
     var assetLoader = new AssetLoader();
 
     assetLoader.addJSON('gameConfig.json');
+    assetLoader.addJSON('gameSettings.json');
 
     assetLoader.load(callback, context);
 }
