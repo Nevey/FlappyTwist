@@ -13,6 +13,8 @@ Game.prototype.init = function()
 {
     Game.base.init.call(this);
 
+    this.setBackgroundColor('#4ec0ca');
+
     this._setupWorldBuilder();
 
     this._addBirdSprite();
