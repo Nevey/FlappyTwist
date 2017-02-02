@@ -70,6 +70,15 @@ Bird.prototype.setGameState = function()
     this._flap();
 };
 
+Bird.prototype.setDeadState = function()
+{
+    this._currentState = this._states.dead;
+
+    document.removeEventListener('tapEvent', this._flapBind);
+
+    this.stopAnimate();
+};
+
 Bird.prototype._playConstantAnimation = function()
 {
     // 24 fps, typical accepted video fps value

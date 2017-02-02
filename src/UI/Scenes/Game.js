@@ -7,9 +7,19 @@ function Game(name)
     this._pipeBuilder = null;
 
     this._bird = null;
+
+    this._gameOverBind = this._gameOver.bind(this);
 }
 
 Class.inherit(Game, Scene);
+
+Object.defineProperty(Game.prototype, 'bird',
+{
+    get: function()
+    {
+        return this._bird;
+    }
+});
 
 Game.prototype.init = function()
 {
@@ -33,15 +43,13 @@ Game.prototype.show = function()
     this._pipeBuilder.start();
 
     this._bird.setGameState();
+
+    document.addEventListener('hitPipeEvent', this._gameOverBind);
 };
 
 Game.prototype.hide = function()
 {
     Game.base.hide.call(this);
-
-    this._worldBuilder.stop();
-
-    this._pipeBuilder.stop();
 };
 
 Game.prototype._setupWorldBuilder = function()
@@ -70,4 +78,15 @@ Game.prototype._addBirdSprite = function()
     this._bird.ceilingCoordinate = this._worldBuilder.ceilingCoordinate;
 
     this._bird.landCoordinate = this._worldBuilder.landCoordinate;
+};
+
+Game.prototype._gameOver = function()
+{
+    this._worldBuilder.stop();
+
+    this._pipeBuilder.stop();
+
+    this._bird.setDeadState();
+
+    document.removeEventListener('hitPipeEvent', this._gameOverBind);
 };

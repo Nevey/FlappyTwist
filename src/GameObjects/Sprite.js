@@ -230,6 +230,21 @@ Sprite.prototype.update = function()
     // Update logic here
 };
 
+Sprite.prototype.checkCollision = function(sprite)
+{
+    if (this.x >= sprite.x - sprite.width / 2 &&
+        this.x <= sprite.x + sprite.width / 2)
+    {
+        if (this.y >= sprite.y - sprite.height / 2 &&
+            this.y <= sprite.y + sprite.height / 2)
+        {
+            return true;
+        }
+    }
+
+    return false;
+};
+
 Sprite.prototype._render = function()
 {
     if (!this._context || !this._visible || !this._enabled)

@@ -8,6 +8,8 @@ function PipeBuilder()
 
     this._pipes = {};
 
+    this._hitPipeEvent = new CustomEvent('hitPipeEvent');
+
     this._updateBind = this._update.bind(this);
 }
 
@@ -31,14 +33,6 @@ PipeBuilder.prototype.start = function()
 PipeBuilder.prototype.stop = function()
 {
     document.removeEventListener('updateEvent', this._updateBind);
-};
-
-PipeBuilder.prototype._update = function()
-{
-    this._pipePositions.forEach(function(position)
-    {
-        this._checkForRePosition(position);
-    }, this);
 };
 
 PipeBuilder.prototype._buildAll = function()
@@ -86,6 +80,17 @@ PipeBuilder.prototype._buildBottom = function(focusPoint)
     var pipe = this._build('bottom', this._scene, focusPoint);
 
     return pipe;
+};
+
+PipeBuilder.prototype._update = function()
+{
+    this._pipePositions.forEach(function(position)
+    {
+        this._checkForRePosition(position);
+
+        this._checkCollisionWithBird(position);
+        
+    }, this);
 };
 
 PipeBuilder.prototype._checkForRePosition = function(position)
@@ -144,4 +149,20 @@ PipeBuilder.prototype._findRightMostPipe = function(position)
     }, this);
 
     return rightMostPipe;
+};
+
+PipeBuilder.prototype._checkCollisionWithBird = function(position)
+{
+    this._pipes[position].forEach(function(pipe)
+    {
+        if (this._scene.bird.checkCollision(pipe.top))
+        {
+            document.dispatchEvent(this._hitPipeEvent);
+        }
+        else if (this._scene.bird.checkCollision(pipe.pipe))
+        {
+            document.dispatchEvent(this._hitPipeEvent);
+        }
+
+    }, this);
 };

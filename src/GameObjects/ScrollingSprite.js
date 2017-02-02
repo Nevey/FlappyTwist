@@ -3,6 +3,10 @@ function ScrollingSprite(name)
     ScrollingSprite.base.constructor.call(this, name);
 
     this._scrollSpeed = 1;
+
+    this._stopScrollingBind = this._stopScrolling.bind(this);
+
+    document.addEventListener('hitPipeEvent', this._stopScrollingBind);
 }
 
 Class.inherit(ScrollingSprite, Sprite);
@@ -32,11 +36,9 @@ ScrollingSprite.prototype._updatePosition = function()
     this.x -= this._scrollSpeed;
 };
 
-ScrollingSprite.prototype._isOffScreen = function()
+ScrollingSprite.prototype._stopScrolling = function()
 {
-    // We're assuming scrolling always goes from right to left
-    if (this.x + this.width / 2 < 0)
-    {
-        // Off screen, destroy!
-    }
+    this._scrollSpeed = 0;
+
+    document.removeEventListener('hitPipeEvent', this._stopScrollingBind);
 };

@@ -115,6 +115,9 @@ WorldBuilder.prototype._update = function()
     this._elementNames.forEach(function(elementName)
     {
         this._checkForRePosition(elementName);
+
+        this._checkCollisionWithBird(elementName);
+
     }, this);
 };
 
@@ -174,4 +177,12 @@ WorldBuilder.prototype._findRightMostElement = function(name)
     }, this);
 
     return rightMostElement;
+};
+
+WorldBuilder.prototype._checkCollisionWithBird = function(name)
+{
+    // this._worldElements[name].forEach(function(element)
+    // {
+    //     this._scene.bird.checkCollision(element);
+    // }, this);
 };
