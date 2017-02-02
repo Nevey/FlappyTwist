@@ -2,6 +2,7 @@ function GameEvents()
 {
     this._enabled = false;
 
+    // TODO: create own event system to be more performant
     this._preUpdateEvent = new CustomEvent('preUpdateEvent');
 
     this._updateEvent = new CustomEvent('updateEvent');
