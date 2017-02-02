@@ -19,6 +19,8 @@
             "ceiling": 1,
 
             "sky": 0.8
-        }
+        },
+
+        "landOffset": 165
     }
 }

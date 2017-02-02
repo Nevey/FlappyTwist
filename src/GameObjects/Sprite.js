@@ -93,11 +93,24 @@ Object.defineProperty(Sprite.prototype, 'y',
     }
 });
 
+Object.defineProperty(Sprite.prototype, 'scale',
+{
+    get: function()
+    {
+        return this._scale;
+    },
+
+    set: function(value)
+    {
+        this._scale = value;
+    }
+})
+
 Object.defineProperty(Sprite.prototype, 'width',
 {
     get: function()
     {
-        return this._frameRect.width;
+        return this._frameRect.width * this._scale.x;
     }
 });
 
@@ -105,7 +118,7 @@ Object.defineProperty(Sprite.prototype, 'height',
 {
     get: function()
     {
-        return this._frameRect.height;
+        return this._frameRect.height * this._scale.y;
     }
 });
 
@@ -237,8 +250,8 @@ Sprite.prototype._render = function()
         this._frameRect.y + this._frameRect.height * this._currentFrame,
         this._frameRect.width,
         this._frameRect.height,
-        0 - this._frameRect.width / 2,
-        0 - this._frameRect.height / 2,
+        0 - this._scale.x * this._frameRect.width / 2,
+        0 - this._scale.y * this._frameRect.height / 2,
         this._frameRect.width * this._scale.x,
         this._frameRect.height * this._scale.y);
 

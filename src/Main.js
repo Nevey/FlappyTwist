@@ -28,9 +28,11 @@ function Initialize()
     scriptLoader.add('GameObjects/Bird.js');
     scriptLoader.add('GameObjects/SplashSprite.js');
     scriptLoader.add('GameObjects/ScrollingSprite.js');
+    scriptLoader.add('GameObjects/Pipe.js');
 
     // Load other scripts
     scriptLoader.add('World/WorldBuilder.js');
+    scriptLoader.add('World/PipeBuilder.js');
 
     // Load UI scripts
     scriptLoader.add('UI/SceneController.js');

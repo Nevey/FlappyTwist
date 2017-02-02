@@ -4,6 +4,8 @@ function Game(name)
 
     this._worldBuilder = null;
 
+    this._pipeBuilder = null;
+
     this._bird = null;
 }
 
@@ -17,6 +19,8 @@ Game.prototype.init = function()
 
     this._setupWorldBuilder();
 
+    this._setupPipeBuilder();
+
     this._addBirdSprite();
 };
 
@@ -26,6 +30,8 @@ Game.prototype.show = function()
 
     this._worldBuilder.start();
 
+    this._pipeBuilder.start();
+
     this._bird.setGameState();
 };
 
@@ -34,6 +40,8 @@ Game.prototype.hide = function()
     Game.base.hide.call(this);
 
     this._worldBuilder.stop();
+
+    this._pipeBuilder.stop();
 };
 
 Game.prototype._setupWorldBuilder = function()
@@ -41,6 +49,13 @@ Game.prototype._setupWorldBuilder = function()
     this._worldBuilder = new WorldBuilder();
 
     this._worldBuilder.init(this);
+};
+
+Game.prototype._setupPipeBuilder = function()
+{
+    this._pipeBuilder = new PipeBuilder();
+
+    this._pipeBuilder.init(this);
 };
 
 Game.prototype._addBirdSprite = function()
