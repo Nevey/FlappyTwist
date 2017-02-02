@@ -57,13 +57,21 @@ Object.defineProperty(Pipe.prototype, 'pipe',
     }
 });
 
-Pipe.prototype.create = function(height)
+Pipe.prototype.create = function(focusPoint)
 {
     this._pipe = new ScrollingSprite('pipe');
 
     this._pipe.enabled = true;
 
-    this._pipe.scale.y = 175;
+    // Value is based on when focus point is in the center
+    var defaultScale = 165;
+
+    this._pipe.scale.y = defaultScale - focusPoint;
+
+    if (this._screenPosition === "top")
+    {
+        this._pipe.scale.y = defaultScale + focusPoint;
+    }
 
     this._pipe.x = this._scene.width + this._pipe.width;
 

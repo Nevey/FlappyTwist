@@ -45,9 +45,11 @@ PipeBuilder.prototype._buildAll = function()
 {
     for (var i = 0; i < this._gameSettings.world.pipes.totalCount; i++)
     {
-        var topPipe = this._buildTop();
+        var focusPoint = Math.floor(Math.random() * 200) - 100;
 
-        var bottomPipe = this._buildBottom();
+        var topPipe = this._buildTop(focusPoint);
+
+        var bottomPipe = this._buildBottom(focusPoint);
 
         topPipe.x += this._gameSettings.world.pipes.distanceBetween * i;
 
@@ -59,11 +61,11 @@ PipeBuilder.prototype._buildAll = function()
     }
 };
 
-PipeBuilder.prototype._build = function(screenPosition, scene)
+PipeBuilder.prototype._build = function(screenPosition, scene, focusPoint)
 {
     var pipe = new Pipe(screenPosition, scene);
 
-    pipe.create();
+    pipe.create(focusPoint);
 
     this._scene.addSprite(pipe._top);
 
@@ -72,16 +74,16 @@ PipeBuilder.prototype._build = function(screenPosition, scene)
     return pipe;
 };
 
-PipeBuilder.prototype._buildTop = function()
+PipeBuilder.prototype._buildTop = function(focusPoint)
 {
-    var pipe = this._build('top', this._scene);
+    var pipe = this._build('top', this._scene, focusPoint);
 
     return pipe;
 };
 
-PipeBuilder.prototype._buildBottom = function()
+PipeBuilder.prototype._buildBottom = function(focusPoint)
 {
-    var pipe = this._build('bottom', this._scene);
+    var pipe = this._build('bottom', this._scene, focusPoint);
 
     return pipe;
 };
