@@ -232,11 +232,11 @@ Sprite.prototype.update = function()
 
 Sprite.prototype.checkCollision = function(sprite)
 {
-    if (this.x >= sprite.x - sprite.width / 2 &&
-        this.x <= sprite.x + sprite.width / 2)
+    if (this.x + this.width / 2 >= sprite.x - sprite.width / 2 &&
+        this.x - this.width / 2 <= sprite.x + sprite.width / 2)
     {
-        if (this.y >= sprite.y - sprite.height / 2 &&
-            this.y <= sprite.y + sprite.height / 2)
+        if (this.y + this.height / 2 >= sprite.y - sprite.height / 2 &&
+            this.y - this.height / 2 <= sprite.y + sprite.height / 2)
         {
             return true;
         }

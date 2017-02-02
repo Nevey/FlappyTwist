@@ -41,11 +41,15 @@ WorldBuilder.prototype.init = function(scene)
 WorldBuilder.prototype.start = function()
 {
     document.addEventListener('updateEvent', this._updateBind);
+
+    this._enableAll();
 };
 
 WorldBuilder.prototype.stop = function()
 {
     document.removeEventListener('updateEvent', this._updateBind);
+
+    this._disableAll();
 };
 
 WorldBuilder.prototype._buildAllElements = function()
@@ -83,10 +87,6 @@ WorldBuilder.prototype._buildWorldElement = function(name)
 {
     var element = new ScrollingSprite(name);
 
-    element.scrollingSpeed = this._gameSettings.world.scrollingSpeeds[name];
-
-    element.enabled = true;
-
     this._setElementPosition(name, element);
 
     return element;
@@ -108,6 +108,35 @@ WorldBuilder.prototype._setElementPosition = function(name, element)
             element.y = this._scene.height - this._gameSettings.world.skyOffset;
             break;
     }
+};
+
+WorldBuilder.prototype._enableAll = function()
+{
+    this._elementNames.forEach(function(elementName)
+    {
+        this._worldElements[elementName].forEach(function(element)
+        {
+            element.scrollSpeed = this._gameSettings.world.scrollingSpeeds[elementName];
+
+            element.enabled = true;
+
+            element.enableEventListeners();
+
+        }, this);
+
+    }, this);
+};
+
+WorldBuilder.prototype._disableAll = function()
+{
+    this._elementNames.forEach(function(elementName)
+    {
+        this._worldElements[elementName].forEach(function(element)
+        {
+            element.enabled = false;
+        }, this);
+        
+    }, this);
 };
 
 WorldBuilder.prototype._update = function()

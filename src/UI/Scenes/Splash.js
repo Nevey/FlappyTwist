@@ -32,6 +32,8 @@ Splash.prototype.show = function()
 Splash.prototype.hide = function()
 {
     Splash.base.hide.call(this);
+
+    this._bird.stopAnimate();
     
     document.removeEventListener('tapEvent', this._showGameSceneBind);
 };

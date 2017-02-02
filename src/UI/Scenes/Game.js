@@ -42,6 +42,10 @@ Game.prototype.show = function()
 
     this._pipeBuilder.start();
 
+    this._bird.x = this.width / 2;
+    
+    this._bird.y = this.height / 2;
+
     this._bird.setGameState();
 
     document.addEventListener('hitPipeEvent', this._gameOverBind);
@@ -50,6 +54,10 @@ Game.prototype.show = function()
 Game.prototype.hide = function()
 {
     Game.base.hide.call(this);
+
+    this._worldBuilder.stop();
+
+    this._pipeBuilder.stop();
 };
 
 Game.prototype._setupWorldBuilder = function()
@@ -72,9 +80,6 @@ Game.prototype._addBirdSprite = function()
 
     this.addSprite(this._bird);
 
-    this._bird.x = this.width / 2;
-    this._bird.y = this.height / 2;
-
     this._bird.ceilingCoordinate = this._worldBuilder.ceilingCoordinate;
 
     this._bird.landCoordinate = this._worldBuilder.landCoordinate;
@@ -82,11 +87,12 @@ Game.prototype._addBirdSprite = function()
 
 Game.prototype._gameOver = function()
 {
-    this._worldBuilder.stop();
-
-    this._pipeBuilder.stop();
-
     this._bird.setDeadState();
 
     document.removeEventListener('hitPipeEvent', this._gameOverBind);
+
+    setTimeout(function()
+    {
+        SceneController.show('Splash');
+    }, 3000);
 };

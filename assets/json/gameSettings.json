@@ -16,11 +16,11 @@
 
         "scrollingSpeeds": {
 
-            "land": 1,
+            "land": 2,
 
-            "ceiling": 1,
+            "ceiling": 2,
 
-            "sky": 0.8
+            "sky": 1.5
         },
 
         "skyOffset": 165,

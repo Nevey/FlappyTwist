@@ -28,11 +28,15 @@ PipeBuilder.prototype.init = function(scene)
 PipeBuilder.prototype.start = function()
 {
     document.addEventListener('updateEvent', this._updateBind);
+
+    this._enableAll();
 };
 
 PipeBuilder.prototype.stop = function()
 {
     document.removeEventListener('updateEvent', this._updateBind);
+
+    this._disableAll();
 };
 
 PipeBuilder.prototype._buildAll = function()
@@ -44,10 +48,6 @@ PipeBuilder.prototype._buildAll = function()
         var topPipe = this._buildTop(focusPoint);
 
         var bottomPipe = this._buildBottom(focusPoint);
-
-        topPipe.x += this._gameSettings.world.pipes.distanceBetween * i;
-
-        bottomPipe.x += this._gameSettings.world.pipes.distanceBetween * i;
 
         this._pipes.top.push(topPipe);
 
@@ -80,6 +80,38 @@ PipeBuilder.prototype._buildBottom = function(focusPoint)
     var pipe = this._build('bottom', this._scene, focusPoint);
 
     return pipe;
+};
+
+PipeBuilder.prototype._enableAll = function()
+{
+    this._pipePositions.forEach(function(position)
+    {
+        var i = 0;
+
+        this._pipes[position].forEach(function(pipe)
+        {
+            pipe.enable();
+
+            pipe.x += this._gameSettings.world.pipes.distanceBetween * i;
+
+            i++;
+
+        }, this);
+
+    }, this);
+};
+
+PipeBuilder.prototype._disableAll = function()
+{
+    this._pipePositions.forEach(function(position)
+    {
+        this._pipes[position].forEach(function(pipe)
+        {
+            pipe.disable();
+
+        }, this);
+
+    }, this);
 };
 
 PipeBuilder.prototype._update = function()

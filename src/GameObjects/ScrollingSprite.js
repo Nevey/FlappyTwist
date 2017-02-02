@@ -5,8 +5,6 @@ function ScrollingSprite(name)
     this._scrollSpeed = 1;
 
     this._stopScrollingBind = this._stopScrolling.bind(this);
-
-    document.addEventListener('hitPipeEvent', this._stopScrollingBind);
 }
 
 Class.inherit(ScrollingSprite, Sprite);
@@ -29,6 +27,11 @@ ScrollingSprite.prototype.update = function()
     ScrollingSprite.base.update.call(this);
 
     this._updatePosition();
+};
+
+ScrollingSprite.prototype.enableEventListeners = function()
+{
+    document.addEventListener('hitPipeEvent', this._stopScrollingBind);
 };
 
 ScrollingSprite.prototype._updatePosition = function()
