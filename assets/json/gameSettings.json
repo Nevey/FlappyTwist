@@ -12,6 +12,8 @@
 
         "elementNames": ["land", "ceiling", "sky"],
 
+        "pipePositions": ["top", "bottom"],
+
         "scrollingSpeeds": {
 
             "land": 1,
@@ -29,7 +31,9 @@
 
         "pipes": {
 
-            "distanceBetween": 200
+            "distanceBetween": 200,
+
+            "totalCount": 6
         }
     }
 }

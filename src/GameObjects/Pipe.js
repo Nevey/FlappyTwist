@@ -6,10 +6,6 @@ function Pipe(screenPosition, scene)
 
     this._pipe = null;
 
-    this._x = 0;
-
-    this._y = 0;
-
     this._screenPosition = screenPosition;
 
     this._scene = scene;
@@ -17,22 +13,31 @@ function Pipe(screenPosition, scene)
 
 Object.defineProperty(Pipe.prototype, 'x',
 {
+    get: function()
+    {
+        return this._pipe.x;
+    },
 
     set: function(value)
     {
-        this._top.x += value;
+        this._top.x = value;
 
-        this._pipe.x += value;
+        this._pipe.x = value;
     }
 });
 
 Object.defineProperty(Pipe.prototype, 'y',
 {
+    get: function()
+    {
+        return this._pipe.y;
+    },
+
     set: function(value)
     {
-        this._top.y += value;
+        this._top.y = value;
 
-        this._pipe.y += value;
+        this._pipe.y = value;
     }
 });
 
@@ -58,7 +63,7 @@ Pipe.prototype.create = function(height)
 
     this._pipe.enabled = true;
 
-    this._pipe.scale.y = 100;
+    this._pipe.scale.y = 175;
 
     this._pipe.x = this._scene.width + this._pipe.width;
 
@@ -68,7 +73,6 @@ Pipe.prototype.create = function(height)
     {
         this._pipe.y = 0 + this._pipe.height / 2;
 
-        // Bad bad magic number (based on ceiling height)
         this._pipe.y += this._gameSettings.world.topPipeOffset;
     }
 
