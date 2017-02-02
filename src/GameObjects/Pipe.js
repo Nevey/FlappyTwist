@@ -17,27 +17,22 @@ function Pipe(screenPosition, scene)
 
 Object.defineProperty(Pipe.prototype, 'x',
 {
-    get: function()
-    {
-        return this._x;
-    },
 
     set: function(value)
     {
-        this._x = value;
+        this._top.x += value;
+
+        this._pipe.x += value;
     }
 });
 
 Object.defineProperty(Pipe.prototype, 'y',
 {
-    get: function()
-    {
-        return this._y;
-    },
-    
     set: function(value)
     {
-        this._y = value;
+        this._top.y += value;
+
+        this._pipe.y += value;
     }
 });
 
@@ -59,25 +54,38 @@ Object.defineProperty(Pipe.prototype, 'pipe',
 
 Pipe.prototype.create = function(height)
 {
-    // is this pipe on top or bottom of screen?
-    // create both sprites
-    // scale pipe
-    // set position
-
-    var name = 'pipe-up';
-
-    this._top = new Sprite(name);
-
-    this._top.enabled = true;
-
-    this._pipe = new Sprite('pipe');
+    this._pipe = new ScrollingSprite('pipe');
 
     this._pipe.enabled = true;
 
     this._pipe.scale.y = 100;
 
-    this._pipe.y = this._scene.height - this._gameSettings.world.landOffset;
+    this._pipe.x = this._scene.width + this._pipe.width;
+
+    this._pipe.y = this._scene.height - this._pipe.height / 2 - this._gameSettings.world.bottomPipeOffset;
+
+    if (this._screenPosition === 'top')
+    {
+        this._pipe.y = 0 + this._pipe.height / 2;
+
+        // Bad bad magic number (based on ceiling height)
+        this._pipe.y += this._gameSettings.world.topPipeOffset;
+    }
+
+    var name = this._screenPosition === 'top' ? 'pipe-down' : 'pipe-up';
+
+    this._top = new ScrollingSprite(name);
+
+    this._top.enabled = true;
+
+    this._top.x = this._pipe.x;
+
+    this._top.y = this._pipe.y - this._pipe.height / 2;
+
+    if (this._screenPosition === 'top')
+    {
+        this._top.y = this._pipe.y + this._pipe.height / 2;
+    }
 
     return { top: this._top, pipe: this._pipe };
 };
-

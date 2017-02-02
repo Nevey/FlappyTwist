@@ -21,6 +21,15 @@
             "sky": 0.8
         },
 
-        "landOffset": 165
+        "skyOffset": 165,
+
+        "topPipeOffset": 16,
+
+        "bottomPipeOffset": 110,
+
+        "pipes": {
+
+            "distanceBetween": 200
+        }
     }
 }

@@ -105,7 +105,7 @@ WorldBuilder.prototype._setElementPosition = function(name, element)
             break;
 
         case 'sky':
-            element.y = this._scene.height - this._gameSettings.world.landOffset;
+            element.y = this._scene.height - this._gameSettings.world.skyOffset;
             break;
     }
 };
