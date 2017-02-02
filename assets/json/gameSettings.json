@@ -33,11 +33,7 @@
 
             "distanceBetween": 200,
 
-            "totalCount": 6,
-
-            "minFocusPoint": -100,
-
-            "maxFocusPoint": 100
+            "totalCount": 6
         }
     }
 }
