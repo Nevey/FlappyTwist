@@ -198,3 +198,19 @@ PipeBuilder.prototype._checkCollisionWithBird = function(position)
 
     }, this);
 };
+
+PipeBuilder.prototype._checkBirdPassedPipes = function(position)
+{
+    this._pipes[position].forEach(function(pipe)
+    {
+        var left = pipe.top.x - pipe.top.width / 2;
+        var right = pipe.top.x + pipe.top.width / 2;
+
+        if (this._scene.bird.x > left &&
+            this._scene.bird.x < right)
+        {
+            // TODO: add score!!!!   
+        }
+
+    }, this);
+};
