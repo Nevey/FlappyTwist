@@ -43,11 +43,11 @@ function Initialize()
     scriptLoader.add('Scoring/ScoreController.js');
 
     // Load UI scripts
-    scriptLoader.add('UI/Controllers/ScoreBoard.js');
-    scriptLoader.add('UI/SceneController.js');
-    scriptLoader.add('UI/Scene.js');
-    scriptLoader.add('UI/Scenes/Splash.js');
-    scriptLoader.add('UI/Scenes/Game.js');
+    scriptLoader.add('Scenes/Controllers/ScoreBoard.js');
+    scriptLoader.add('Scenes/SceneController.js');
+    scriptLoader.add('Scenes/Scene.js');
+    scriptLoader.add('Scenes/Scenes/Splash.js');
+    scriptLoader.add('Scenes/Scenes/Game.js');
 
     // Start loading, do callback when done
     scriptLoader.load(LoadAssets);
