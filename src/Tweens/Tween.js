@@ -152,7 +152,7 @@ Tween.prototype.stop = function()
 
 Tween.prototype.stopChainedTweens = function() 
 {
-    for (var i = 0, numChainedTweens = this._chainedTweens.length; i < numChainedTweens; i++ ) 
+    for (var i = 0; i < this._chainedTweens.length; i++ ) 
     {
         this._chainedTweens[i].stop();
     }
@@ -352,17 +352,17 @@ Tween.prototype.update = function()
         } 
         else 
         {
+            this._isPlaying = false;
+
             if (this._onCompleteCallback !== null) 
             {
                 this._onCompleteCallback.call(this._onCompleteContext);
             }
 
-            for (var i = 0, numChainedTweens = this._chainedTweens.length; i < numChainedTweens; i++) 
+            for (var i = 0; i < this._chainedTweens.length; i++) 
             {
                 this._chainedTweens[i].start(time);
             }
-
-            this._isPlaying = false;
         }
 
         document.removeEventListener('updateEvent', this._updateBind);
