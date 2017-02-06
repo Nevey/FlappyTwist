@@ -30,6 +30,7 @@ function Initialize()
 
     // Load gameobject scripts
     scriptLoader.add('GameObjects/Sprite.js');
+    scriptLoader.add('GameObjects/Label.js');
     scriptLoader.add('GameObjects/Bird.js');
     scriptLoader.add('GameObjects/SplashSprite.js');
     scriptLoader.add('GameObjects/ScrollingSprite.js');

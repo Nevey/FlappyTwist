@@ -21,8 +21,6 @@ function Sprite(name)
 
     this._visible = false;
 
-    this._visibleSetManually = false;
-
     this._enabled = false;
 
     this._image = Cache.IMAGES[this._name];

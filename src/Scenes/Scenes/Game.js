@@ -39,11 +39,11 @@ Game.prototype.init = function()
 
     this._setupPipeBuilder();
 
-    this._setupScoreController();
-
     this._setupBird();
 
     this._setupScoreBoard();
+
+    this._setupScoreController();
 };
 
 Game.prototype.show = function()
@@ -95,6 +95,8 @@ Game.prototype._setupPipeBuilder = function()
 Game.prototype._setupScoreController = function()
 {
     this._scoreController = new ScoreController();
+
+    this._scoreController.init(this);
 };
 
 Game.prototype._setupBird = function()

@@ -19,7 +19,7 @@ function Scene(name)
 
     this._images = {};
 
-    this._texts = {};
+    this._labels = {};
 
     this._buttons = {};
 
@@ -88,35 +88,7 @@ Scene.prototype.setBackgroundColor = function(colorString)
 // TODO: Move this to a scene builder, to make it possible to build scenes from data files
 Scene.prototype.addSprite = function(sprite)
 {
-    var name = sprite.name + '_0';
-
-    if (this._images[name])
-    {
-        var id = 1;
-
-        for (var key in this._images)
-        {
-            var strings = key.split('_');
-
-            var existingId = parseInt(strings[strings.length - 1]);
-
-            var spriteName = '';
-
-            for (var i = 0; i < strings.length - 1; i++)
-            {
-                var string = strings[i];
-
-                spriteName += string;
-            }
-
-            if (existingId >= id)
-            {
-                id = existingId + 1;
-            }
-        }
-
-        name = sprite.name + '_' + id;
-    }
+    var name = this._generateUniqueName(this._images, sprite.name);
 
     sprite.setContext(this._canvas);
 
@@ -125,6 +97,54 @@ Scene.prototype.addSprite = function(sprite)
     this._elements.push(sprite);
 
     return sprite;
+};
+
+Scene.prototype.addLabel = function(label)
+{
+    var name = this._generateUniqueName(this._labels, label.name);
+
+    label.setContext(this._canvas);
+
+    this._labels[name] = label;
+
+    this._elements.push(label);
+
+    return label;
+};
+
+Scene.prototype._generateUniqueName = function(list, objectName)
+{
+    var name = objectName + '_0';
+
+    if (list[name])
+    {
+        var id = 1;
+
+        for (var key in list)
+        {
+            var strings = key.split('_');
+
+            var existingId = parseInt(strings[strings.length - 1]);
+
+            var labelName = '';
+
+            for (var i = 0; i < strings.length - 1; i++)
+            {
+                var string = strings[i];
+
+                labelName += string;
+            }
+
+            if (existingId >= id)
+            {
+                id = existingId + 1;
+            }
+        }
+
+        name = objectName+ '_' + id;
+    }
+
+    return name;
 };
 
 // TODO: move to a more central place, where we have just one element handling the buffering
