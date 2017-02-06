@@ -39,6 +39,9 @@ function Initialize()
     scriptLoader.add('World/WorldBuilder.js');
     scriptLoader.add('World/PipeBuilder.js');
 
+    // Scoring
+    scriptLoader.add('Scoring/ScoreController.js');
+
     // Load UI scripts
     scriptLoader.add('UI/Controllers/ScoreBoard.js');
     scriptLoader.add('UI/SceneController.js');
