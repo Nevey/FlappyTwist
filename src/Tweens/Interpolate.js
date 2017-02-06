@@ -2,7 +2,7 @@ Interpolate = {
 
 	Linear: function ( v, k ) {
 
-		var m = v.length - 1, f = m * k, i = Math.floor( f ), fn = TWEEN.Interpolation.Utils.Linear;
+		var m = v.length - 1, f = m * k, i = Math.floor( f ), fn = Interpolate.Utils.Linear;
 
 		if ( k < 0 ) return fn( v[ 0 ], v[ 1 ], f );
 		if ( k > 1 ) return fn( v[ m ], v[ m - 1 ], m - f );
@@ -13,7 +13,7 @@ Interpolate = {
 
 	Bezier: function ( v, k ) {
 
-		var b = 0, n = v.length - 1, pw = Math.pow, bn = TWEEN.Interpolation.Utils.Bernstein, i;
+		var b = 0, n = v.length - 1, pw = Math.pow, bn = Interpolate.Utils.Bernstein, i;
 
 		for ( i = 0; i <= n; i++ ) {
 			b += pw( 1 - k, n - i ) * pw( k, i ) * v[ i ] * bn( n, i );
@@ -25,7 +25,7 @@ Interpolate = {
 
 	CatmullRom: function ( v, k ) {
 
-		var m = v.length - 1, f = m * k, i = Math.floor( f ), fn = TWEEN.Interpolation.Utils.CatmullRom;
+		var m = v.length - 1, f = m * k, i = Math.floor( f ), fn = Interpolate.Utils.CatmullRom;
 
 		if ( v[ 0 ] === v[ m ] ) {
 
@@ -54,7 +54,7 @@ Interpolate = {
 
 		Bernstein: function ( n , i ) {
 
-			var fc = TWEEN.Interpolation.Utils.Factorial;
+			var fc = Interpolate.Utils.Factorial;
 			return fc( n ) / fc( i ) / fc( n - i );
 
 		},
