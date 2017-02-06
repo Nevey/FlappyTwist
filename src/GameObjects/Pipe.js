@@ -11,6 +11,8 @@ function Pipe(screenPosition, scene)
     this._scene = scene;
 
     this._focusPoint = null;
+
+    this._passedByBird = false;
 }
 
 Object.defineProperty(Pipe.prototype, 'x',
@@ -56,6 +58,19 @@ Object.defineProperty(Pipe.prototype, 'pipe',
     get: function()
     {
         return this._pipe;
+    }
+});
+
+Object.defineProperty(Pipe.prototype, 'passedByBird',
+{
+    get: function()
+    {
+        return this._passedByBird;
+    },
+
+    set: function(value)
+    {
+        this._passedByBird = value;
     }
 });
 

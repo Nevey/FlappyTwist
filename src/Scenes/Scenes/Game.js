@@ -6,6 +6,8 @@ function Game(name)
 
     this._pipeBuilder = null;
 
+    this._scoreController = null;
+
     this._bird = null;
 
     this._scoreBoard = null;
@@ -37,6 +39,8 @@ Game.prototype.init = function()
 
     this._setupPipeBuilder();
 
+    this._setupScoreController();
+
     this._setupBird();
 
     this._setupScoreBoard();
@@ -49,6 +53,8 @@ Game.prototype.show = function()
     this._worldBuilder.start();
 
     this._pipeBuilder.start();
+
+    this._scoreController.start();
 
     this._bird.x = this.width / 2;
     
@@ -68,6 +74,8 @@ Game.prototype.hide = function()
     this._worldBuilder.stop();
 
     this._pipeBuilder.stop();
+
+    this._scoreController.stop();
 };
 
 Game.prototype._setupWorldBuilder = function()
@@ -82,6 +90,11 @@ Game.prototype._setupPipeBuilder = function()
     this._pipeBuilder = new PipeBuilder();
 
     this._pipeBuilder.init(this);
+};
+
+Game.prototype._setupScoreController = function()
+{
+    this._scoreController = new ScoreController();
 };
 
 Game.prototype._setupBird = function()

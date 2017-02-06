@@ -10,6 +10,8 @@ function PipeBuilder()
 
     this._hitPipeEvent = new CustomEvent('hitPipeEvent');
 
+    this._passedPipeEvent = new CustomEvent('passedPipeEvent');
+
     this._updateBind = this._update.bind(this);
 }
 
@@ -123,6 +125,8 @@ PipeBuilder.prototype._update = function()
         this._checkCollisionWithBird(position);
         
     }, this);
+
+    this._checkBirdPassedPipes();
 };
 
 PipeBuilder.prototype._checkForRePosition = function(position)
@@ -134,6 +138,8 @@ PipeBuilder.prototype._checkForRePosition = function(position)
         var leftMostPipe = this._findLeftMostPipe(position);
 
         leftMostPipe.x = rightMostPipe.x + this._gameSettings.world.pipes.distanceBetween;
+
+        leftMostPipe.passedByBird = false;
     }
 };
 
@@ -199,17 +205,23 @@ PipeBuilder.prototype._checkCollisionWithBird = function(position)
     }, this);
 };
 
-PipeBuilder.prototype._checkBirdPassedPipes = function(position)
+PipeBuilder.prototype._checkBirdPassedPipes = function()
 {
-    this._pipes[position].forEach(function(pipe)
+    this._pipes['top'].forEach(function(pipe)
     {
-        var left = pipe.top.x - pipe.top.width / 2;
+        // Check if bird x is between two x coordinates based on pipe top sprite
+        var left = pipe.top.x;
         var right = pipe.top.x + pipe.top.width / 2;
 
         if (this._scene.bird.x > left &&
             this._scene.bird.x < right)
         {
-            // TODO: add score!!!!   
+            if (!pipe.passedByBird)
+            {
+                document.dispatchEvent(this._passedPipeEvent);
+
+                pipe.passedByBird = true;
+            }
         }
 
     }, this);
