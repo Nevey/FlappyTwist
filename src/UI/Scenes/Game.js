@@ -8,6 +8,8 @@ function Game(name)
 
     this._bird = null;
 
+    this._scoreBoard = null;
+
     this._gameOverBind = this._gameOver.bind(this);
 
     this._gameOverEvent = new CustomEvent('gameOverEvent');
@@ -33,7 +35,9 @@ Game.prototype.init = function()
 
     this._setupPipeBuilder();
 
-    this._addBirdSprite();
+    this._setupBird();
+
+    this._setupScoreBoard();
 };
 
 Game.prototype.show = function()
@@ -78,7 +82,7 @@ Game.prototype._setupPipeBuilder = function()
     this._pipeBuilder.init(this);
 };
 
-Game.prototype._addBirdSprite = function()
+Game.prototype._setupBird = function()
 {
     this._bird = new Bird();
 
@@ -87,6 +91,13 @@ Game.prototype._addBirdSprite = function()
     this._bird.ceilingCoordinate = this._worldBuilder.ceilingCoordinate;
 
     this._bird.landCoordinate = this._worldBuilder.landCoordinate;
+};
+
+Game.prototype._setupScoreBoard = function()
+{
+    this._scoreBoard = new ScoreBoard();
+
+    this._scoreBoard.init(this);
 };
 
 Game.prototype._gameOver = function()
@@ -99,8 +110,13 @@ Game.prototype._gameOver = function()
 
     document.dispatchEvent(this._gameOverEvent);
 
-    setTimeout(function()
-    {
-        SceneController.show('Splash');
-    }, 3000);
+    // setTimeout(function()
+    // {
+    //     SceneController.show('Splash');
+    // }, 3000);
+};
+
+Game.prototype._showScoreBoard = function()
+{
+    this._scoreBoard.show();
 };
