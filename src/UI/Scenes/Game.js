@@ -9,6 +9,8 @@ function Game(name)
     this._bird = null;
 
     this._gameOverBind = this._gameOver.bind(this);
+
+    this._gameOverEvent = new CustomEvent('gameOverEvent');
 }
 
 Class.inherit(Game, Scene);
@@ -49,6 +51,8 @@ Game.prototype.show = function()
     this._bird.setGameState();
 
     document.addEventListener('hitPipeEvent', this._gameOverBind);
+
+    document.addEventListener('hitFloorEvent', this._gameOverBind);
 };
 
 Game.prototype.hide = function()
@@ -90,6 +94,10 @@ Game.prototype._gameOver = function()
     this._bird.setDeadState();
 
     document.removeEventListener('hitPipeEvent', this._gameOverBind);
+
+    document.removeEventListener('hitFloorEvent', this._gameOverBind);
+
+    document.dispatchEvent(this._gameOverEvent);
 
     setTimeout(function()
     {

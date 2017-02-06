@@ -31,7 +31,7 @@ ScrollingSprite.prototype.update = function()
 
 ScrollingSprite.prototype.enableEventListeners = function()
 {
-    document.addEventListener('hitPipeEvent', this._stopScrollingBind);
+    document.addEventListener('gameOverEvent', this._stopScrollingBind);
 };
 
 ScrollingSprite.prototype._updatePosition = function()
@@ -43,5 +43,5 @@ ScrollingSprite.prototype._stopScrolling = function()
 {
     this._scrollSpeed = 0;
 
-    document.removeEventListener('hitPipeEvent', this._stopScrollingBind);
+    document.removeEventListener('gameOverEvent', this._stopScrollingBind);
 };

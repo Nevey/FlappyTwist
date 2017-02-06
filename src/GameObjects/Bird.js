@@ -30,7 +30,7 @@ function Bird()
 
     this._flapBind = this._flap.bind(this);
 
-    this._image.style.zIndex = '-10';
+    this._hitFloorEvent = new CustomEvent('hitFloorEvent');
 }
 
 Class.inherit(Bird, Sprite);
@@ -145,5 +145,7 @@ Bird.prototype._checkForLandCollision = function()
     if (this.y >= landY)
     {
         this.y = landY;
+
+        document.dispatchEvent(this._hitFloorEvent);
     }
 };
