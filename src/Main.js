@@ -23,6 +23,11 @@ function Initialize()
     scriptLoader.add('Input/TouchInput.js');
     scriptLoader.add('Input/PlayerInput.js');
 
+    // Load tween scripts
+    scriptLoader.add('Tweens/Ease.js');
+    scriptLoader.add('Tweens/Interpolate.js');
+    scriptLoader.add('Tweens/Tween.js');
+
     // Load gameobject scripts
     scriptLoader.add('GameObjects/Sprite.js');
     scriptLoader.add('GameObjects/Bird.js');

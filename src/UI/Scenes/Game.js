@@ -12,6 +12,8 @@ function Game(name)
 
     this._gameOverBind = this._gameOver.bind(this);
 
+    this._showSplashBind = this._showSplash.bind(this);
+
     this._gameOverEvent = new CustomEvent('gameOverEvent');
 }
 
@@ -110,13 +112,23 @@ Game.prototype._gameOver = function()
 
     document.dispatchEvent(this._gameOverEvent);
 
-    // setTimeout(function()
-    // {
-    //     SceneController.show('Splash');
-    // }, 3000);
+    this._showScoreBoard();
 };
 
 Game.prototype._showScoreBoard = function()
 {
-    this._scoreBoard.show();
+    // Show splash which will animate, wait for animation to complete and add event listener
+    this._scoreBoard.show(function()
+    {
+        document.addEventListener('tapEvent', this._showSplashBind);
+    }, this);
+};
+
+Game.prototype._showSplash = function()
+{
+    document.removeEventListener('tapEvent', this._showSplashBind);
+
+    this._scoreBoard.hide();
+
+    SceneController.show('Splash');
 };

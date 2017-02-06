@@ -26,9 +26,9 @@ function Tween(object)
 
     this._isPaused = false;
 
-	this._easingFunction = TweenEase.Linear.None;
+	this._easingFunction = Ease.Linear.None;
 
-	this._interpolationFunction = TweenInterpolation.Linear;
+	this._interpolationFunction = Interpolate.Linear;
 
 	this._chainedTweens = [];
 
