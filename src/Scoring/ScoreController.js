@@ -49,7 +49,7 @@ ScoreController.prototype.init = function(scene)
 
     this._scoreLabel.y = this._scene.height / 2;
 
-    this._scoreLabel.strokeThickness = 5;
+    this._scoreLabel.strokeThickness = 1;
 
     this._scoreLabel.visible = false;
 

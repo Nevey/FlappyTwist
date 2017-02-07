@@ -31,6 +31,8 @@ ScoreBoard.prototype.init = function(scene)
 
     this._score.alignment = 'right';
 
+    // this._score.strokeThickness = 1;
+
     this._highScore = new Label();
 
     this._highScore.x = this._scoreBoard.x + 92;
@@ -39,6 +41,8 @@ ScoreBoard.prototype.init = function(scene)
     this._highScore.fontSize = 14;
 
     this._highScore.alignment = 'right';
+
+    // this._highScore.strokeThickness = 1;
 
     this._medal = new Sprite('medal_bronze');
 

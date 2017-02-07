@@ -284,6 +284,14 @@ Label.prototype._render = function()
         this._x / this._scale.x, 
         this._y / this._scale.y);
 
+    if (this._strokeThickness > 0)
+    {
+        this._context.strokeText(
+            this._text, 
+            this._x / this._scale.x, 
+            this._y / this._scale.y);
+    }
+
     // Reset scale
     this._context.restore();
 };
