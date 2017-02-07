@@ -9,6 +9,36 @@ function ScoreController()
     this._onPassedPipeBind = this._onPassedPipe.bind(this);
 }
 
+Object.defineProperty(ScoreController.prototype, 'score',
+{
+    get: function()
+    {
+        return this._score;
+    }
+});
+
+Object.defineProperty(ScoreController.prototype, 'highscore',
+{
+    get: function()
+    {
+        var highscore = localStorage.getItem('flappyTwist_highscore');
+
+        highscore = highscore ? parseInt(highscore) : undefined;
+
+        return highscore;
+    },
+
+    set: function(value)
+    {
+        var highscore = this.highscore;
+
+        if (!highscore || highscore < value)
+        {
+            localStorage.setItem('flappyTwist_highscore', value.toString());
+        }
+    }
+});
+
 ScoreController.prototype.init = function(scene)
 {
     this._scene = scene;
@@ -42,6 +72,13 @@ ScoreController.prototype._addScore = function(amount)
 {
     this._score += amount;
 
+    this.highscore = this._score;
+
+    this._playScoreAnimation();
+};
+
+ScoreController.prototype._playScoreAnimation = function()
+{
     this._scoreLabel.visible = true;
 
     this._scoreLabel.text = this._score;

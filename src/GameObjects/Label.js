@@ -232,6 +232,19 @@ Object.defineProperty(Label.prototype, 'strokeThickness',
     }
 });
 
+Object.defineProperty(Label.prototype, 'alignment',
+{
+    get: function()
+    {
+        return this._alignment
+    },
+
+    set: function(value)
+    {
+        this._alignment = value;
+    }
+});
+
 Label.prototype.setContext = function(canvas)
 {
     this._context = canvas.getContext('2d');

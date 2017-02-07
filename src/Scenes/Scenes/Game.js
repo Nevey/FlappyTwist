@@ -133,7 +133,7 @@ Game.prototype._gameOver = function()
 Game.prototype._showScoreBoard = function()
 {
     // Show splash which will animate, wait for animation to complete and add event listener
-    this._scoreBoard.show(function()
+    this._scoreBoard.show(this._scoreController.score, this._scoreController.highscore, function()
     {
         document.addEventListener('tapEvent', this._showSplashBind);
     }, this);

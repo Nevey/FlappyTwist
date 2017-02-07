@@ -22,15 +22,23 @@ ScoreBoard.prototype.init = function(scene)
     this._scoreBoard.x = this._scene.width / 2;
     this._scoreBoard.y = this._scene.height / 2;
 
-    this._score = new Sprite('font_small_0');
+    this._score = new Label();
 
-    this._score.x = this._scoreBoard.x + 70;
-    this._score.y = this._scoreBoard.y - 27;
+    this._score.x = this._scoreBoard.x + 92;
+    this._score.y = this._scoreBoard.y - 23;
 
-    this._highScore = new Sprite('font_small_0');
+    this._score.fontSize = 14;
 
-    this._highScore.x = this._scoreBoard.x + 70;
-    this._highScore.y = this._scoreBoard.y + 15;
+    this._score.alignment = 'right';
+
+    this._highScore = new Label();
+
+    this._highScore.x = this._scoreBoard.x + 92;
+    this._highScore.y = this._scoreBoard.y + 19;
+
+    this._highScore.fontSize = 14;
+
+    this._highScore.alignment = 'right';
 
     this._medal = new Sprite('medal_bronze');
 
@@ -58,7 +66,7 @@ ScoreBoard.prototype.init = function(scene)
     }, this);
 };
 
-ScoreBoard.prototype.show = function(callback, context)
+ScoreBoard.prototype.show = function(score, highscore, callback, context)
 {
     this._elements.forEach(function(element)
     {
@@ -79,6 +87,10 @@ ScoreBoard.prototype.show = function(callback, context)
         tween.start();
 
     }, this);
+
+    this._score.text = score;
+
+    this._highScore.text = highscore || score;
 };
 
 ScoreBoard.prototype.hide = function()
