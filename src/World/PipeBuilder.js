@@ -94,6 +94,8 @@ PipeBuilder.prototype._enableAll = function()
         {
             pipe.enable();
 
+            pipe.passedByBird = false;
+
             pipe.x += this._gameSettings.world.pipes.distanceBetween * i;
 
             i++;
