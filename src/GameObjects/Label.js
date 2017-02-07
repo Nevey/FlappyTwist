@@ -29,6 +29,8 @@ function Label()
 
     this._strokeColor = '#000000';
 
+    this._alpha = 1;
+
     this._visible = false;
 
     this._enabled = false;
@@ -204,6 +206,32 @@ Object.defineProperty(Label.prototype, 'fontSize',
     }
 });
 
+Object.defineProperty(Label.prototype, 'alpha',
+{
+    get: function()
+    {
+        return this._alpha;
+    },
+
+    set: function(value)
+    {
+        this._alpha = value;
+    }
+});
+
+Object.defineProperty(Label.prototype, 'strokeThickness',
+{
+    get: function()
+    {
+        return this._strokeThickness
+    },
+
+    set: function(value)
+    {
+        this._strokeThickness = value;
+    }
+});
+
 Label.prototype.setContext = function(canvas)
 {
     this._context = canvas.getContext('2d');
@@ -222,6 +250,10 @@ Label.prototype._render = function()
         return;
     }
 
+    this._context.save();
+
+    this._context.scale(this._scale.x, this._scale.y);
+
     this._context.font = this._fontSize + this._font;
 
     this._context.fillStyle = this._textColor;
@@ -232,8 +264,13 @@ Label.prototype._render = function()
     
     this._context.strokeStyle = this._strokeColor;
 
+    this._context.globalAlpha = this._alpha;
+
     this._context.fillText(
         this._text, 
-        this._x, 
-        this._y);
+        this._x / this._scale.x, 
+        this._y / this._scale.y);
+
+    // Reset scale
+    this._context.restore();
 };
